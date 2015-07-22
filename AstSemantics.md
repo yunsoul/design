@@ -54,7 +54,8 @@ operations.
   * `funcptr`: a function identifier for use in `call_indirect`
 
 The zero value of funcptr is the identifier for the first function in the
-function table.
+function table. (C/C++ compilers may wish to put a placeholder function at
+this point in the table to implement a null pointer concept.)
 
 Parameters and local variables use local types.
 
