@@ -279,6 +279,11 @@ Each function has a *signature*, which consists of:
   * Return types, which are a sequence of local types
   * Argument types, which are a sequence of local types
 
+Note that WebAssembly itself does not support variable-length argument lists.
+C and C++ compilers are expected to implement this functionality by storing
+an array of arguments in a buffer in linear memory and passing a pointer to
+the buffer.
+
 In the MVP, the length of the return types vector may only be 0 or 1. This
 restriction may be lifted in the future with the addition of support for
 [multiple return values](FutureFeatures.md#multiple-return-values").
