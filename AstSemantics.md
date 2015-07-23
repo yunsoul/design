@@ -55,9 +55,9 @@ return type is represented as an empty sequence.
 
 *Local types* are a superset of the basic types, adding the following:
 
-  * `funcptr`: a function identifier for use in `call_indirect`
+  * `funcid`: a function identifier for use in `call_indirect`
 
-The zero value of `funcptr` is the identifier for the first function in the
+The zero value of `funcid` is the identifier for the first function in the
 function table. (C/C++ compilers may wish to put a placeholder function at
 this point in the table to implement a null pointer concept.)
 
@@ -299,10 +299,10 @@ There are two forms of calls:
   * `call_indirect`: call function indirectly
 
 Direct calls identify their function statically. Indirect calls have a
-`funcptr` operand which identifies the function at runtime.
+`funcid` operand which identifies the function at runtime.
 
 Calls have a signature, which is the expected return types and argument types
-(ignoring the `funcptr` operand, in the case of `call_indirect`) of the
+(ignoring the `funcid` operand, in the case of `call_indirect`) of the
 AST node. Call operations trap if the signature of the call differs from the
 signature of the called function.
 
@@ -310,20 +310,20 @@ signature of the called function.
 
 Function pointer values are obtained through the use of a special operator:
 
-  * `addressof`: obtain a `funcptr` value for a given statically-identified function
+  * `addressof`: obtain a `funcid` value for a given statically-identified function
 
 and are comparable for equality:
 
-  * `funcptr.eq`: function identifier compare equal
+  * `funcid.eq`: function identifier compare equal
 
-Note that it is not possible to directly observe the bits of a `funcptr`
+Note that it is not possible to directly observe the bits of a `funcid`
 value. They may be [converted into integers][], but the integers only hold an
 index into the *function table*, a table with an entry for each function
 appended to the table in the order that they are loaded into the program.
 
-In the MVP, `funcptr` values are local to a single module. The
+In the MVP, `funcid` values are local to a single module. The
 [dynamic linking](FutureFeatures.md#dynamic-linking) feature is necessary for
-two modules to pass `funcptr` values back and forth.
+two modules to pass `funcid` values back and forth.
 
   [converted into integers]: AstSemantics.md#datatype-conversions-truncations-reinterpretations-promotions-and-demotions
 
@@ -500,7 +500,7 @@ implementations of the remaining required operations.
   * `float64.cvt_unsigned[int32]`: convert an unsigned 32-bit integer to a 64-bit float
   * `float64.cvt_unsigned[int64]`: convert an unsigned 64-bit integer to a 64-bit float
   * `float64.reinterpret[int64]`: reinterpret the bits of a 64-bit integer as a 64-bit float
-  * `funcptr.decode[int32]` : convert an unsigned 32-bit integer to a function identifier
+  * `funcid.decode[int32]` : convert an unsigned 32-bit integer to a function identifier
   * `int32.encode` : convert a function identifier to an unsigned 32-bit integer
 
 Wrapping and extension of integer values always succeed.
@@ -520,9 +520,9 @@ Truncation from floating point to integer where IEEE-754 would specify an
 invalid operation exception (e.g. when the floating point value is NaN or
 outside the range which rounds to an integer in range) traps.
 
-Encoding a `funcptr` returns the index into the function table. If the index of
+Encoding a `funcid` returns the index into the function table. If the index of
 the function is too great to fit in the result type, encoding traps. Decoding
-returns the `funcptr` from an encoded function index. If the index is out of
-bounds in the function table, decoding traps. In the MVP, `funcptr` values may
-only be converted to and from 32-bit integers. Support for 64-bit funcptrs may
+returns the `funcid` from an encoded function index. If the index is out of
+bounds in the function table, decoding traps. In the MVP, `funcid` values may
+only be converted to and from 32-bit integers. Support for 64-bit funcid may
 be added in the future.
