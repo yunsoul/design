@@ -291,7 +291,7 @@ buffer.
 
 In the MVP, the length of the return types vector may only be 0 or 1. This
 restriction may be lifted in the future with the addition of support for
-[multiple return values](FutureFeatures.md#multiple-return-values").
+[multiple return values](FutureFeatures.md#multiple-return-values).
 
 There are two forms of calls:
 
