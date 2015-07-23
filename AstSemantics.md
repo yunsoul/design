@@ -47,6 +47,10 @@ Note that the local types `int32` and `int64` are not inherently signed or
 unsigned. The interpretation of these types is determined by individual
 operations.
 
+Also note that there is no need for a `void` type; function signatures use
+[sequences of types](Calls.md) to describe their return values, so a `void`
+return type is represented as an empty sequence.
+
 ### Local Types
 
 *Local types* are a superset of the basic types, adding the following:
