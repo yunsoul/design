@@ -24,7 +24,7 @@ and the rest of the Web platform that have been considered:
   [subresource integrity][] to enable distribution, especially through content
   distribution networks and to implement
   [dynamic linking](FutureFeatures.md#dynamic-linking).
-* Once [threads are supported](PostMVP.md#threads), a WebAssembly module would
+* Once [threads are supported](Threads.md), a WebAssembly module would
   shared (including its heap) between workers via `postMessage()`.
   - This also has the effect of explicitly sharing code so that engines don't
     perform N fetches and compile N copies.
